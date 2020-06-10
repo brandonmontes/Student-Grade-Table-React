@@ -1,5 +1,4 @@
 import React from 'react';
-// import Grade from './grade';
 
 function Grade(props) {
   return (
@@ -31,7 +30,6 @@ function GradeTable(props) {
               />
             );
           })
-
         }
       </tbody>
     </table>
