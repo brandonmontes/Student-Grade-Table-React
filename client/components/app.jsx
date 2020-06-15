@@ -67,10 +67,9 @@ class App extends React.Component {
     })
       .then(res => res.json())
       .then(rs => {
-        grades.slice(eventTarget, 1);
-        this.setState({ grades });
+        const newGrades = grades.filter(e => e !== eventTarget);
+        this.setState({ grades: newGrades });
       });
-    this.getGrades();
   }
 
   render() {
