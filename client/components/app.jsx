@@ -22,10 +22,20 @@ class App extends React.Component {
       });
   }
 
+  getAverage() {
+    const grades = this.state.grades;
+    let total = 0;
+    for (let i = 0; i < grades.length; i++) {
+      total += grades[i].grade;
+    }
+    const avg = Math.trunc((total / grades.length));
+    return avg;
+  }
+
   render() {
     return (
       <div className='container'>
-        <PageTitle text='Student Grade Table'/>
+        <PageTitle average={this.getAverage()}/>
         <GradeTable grades={this.state.grades}/>
       </div>
     );
