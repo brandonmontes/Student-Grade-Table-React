@@ -10,6 +10,7 @@ class App extends React.Component {
       grades: []
     };
     this.addGrades = this.addGrades.bind(this);
+    this.deleteGrades = this.deleteGrades.bind(this);
   }
 
   componentDidMount() {
@@ -26,12 +27,16 @@ class App extends React.Component {
 
   getAverage() {
     const grades = this.state.grades;
-    let total = 0;
-    for (let i = 0; i < grades.length; i++) {
-      total += grades[i].grade;
+    if (grades.length === 0) {
+      return 'N/A';
+    } else {
+      let total = 0;
+      for (let i = 0; i < grades.length; i++) {
+        total += grades[i].grade;
+      }
+      const avg = Math.trunc(total / grades.length);
+      return avg;
     }
-    const avg = Math.trunc((total / grades.length));
-    return avg;
   }
 
   addGrades(newStudent) {
@@ -48,12 +53,32 @@ class App extends React.Component {
       });
   }
 
+  deleteGrades(Id) {
+    let eventTarget = null;
+    const grades = this.state.grades.slice();
+    for (let i = 0; i < grades.length; i++) {
+      if (Id === grades[i].id) {
+        eventTarget = grades[i];
+        break;
+      }
+    }
+    fetch(`/api/grades/${Id}`, {
+      method: 'DELETE'
+    })
+      .then(res => res.json())
+      .then(rs => {
+        grades.slice(eventTarget, 1);
+        this.setState({ grades });
+      });
+    this.getGrades();
+  }
+
   render() {
     return (
       <div className='container'>
         <PageTitle average={this.getAverage()}/>
         <div className='d-flex justify-content-between'>
-          <GradeTable grades={this.state.grades}/>
+          <GradeTable grades={this.state.grades} deleteGrades={this.deleteGrades}/>
           <GradeForm onSubmit={this.addGrades}/>
         </div>
       </div>

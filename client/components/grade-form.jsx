@@ -67,13 +67,13 @@ class GradeForm extends React.Component {
     return (
       <div>
         <h2>Add Grade</h2>
-        <form className="d-flex flex-column" onSubmit={this.handleSubmit} on={this.handleReset}>
+        <form className="d-flex flex-column" onSubmit={this.handleSubmit} onReset={this.handleReset}>
           <input required type="text" name="name" placeholder="Student Name" value={this.state.name} onChange={this.handleChangeName}/>
           <input required type="text" name="course" placeholder="Student Course" value={this.state.course} onChange={this.handleChangeCourse}/>
           <input required type="text" name="grade" placeholder="Student Grade" value={this.state.grade} onChange={this.handleChangeGrade}/>
           <div>
             <input type="submit" value="Submit" className="btn btn-success"/>
-            <input type="button" value="Cancel" className="btn btn-light"/>
+            <input type="reset" value="Cancel" className="btn btn-light"/>
           </div>
         </form>
       </div>
